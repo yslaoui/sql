@@ -47,4 +47,40 @@ CREATE TABLE employee_duplicates (
 );
 
 INSERT INTO employee_duplicates (name, salary)
-   VALUES ('alice',3000),('bob', 2000),('alice', 5000),('bob', 2000),('alice', 3000),('bob', 5000);
+   VALUES ('alice',3000),('bob', 2000),('alice', 5000),
+          ('bob', 2000),('alice', 3000),('bob', 5000);
+
+
+-- This is not good because it does not distinguish between two employees
+-- that have the same name but different salaries
+SELECT name, COUNT(*) 
+FROM employee_duplicates
+GROUP BY name;
+
+-- Result
+-- "name"	"count"
+-- "bob"	3
+-- "alice"	3
+
+-- A good solution is to group by both name and salary 
+
+SELECT name, salary, COUNT(*) 
+FROM employee_duplicates
+GROUP BY name, salary;
+
+"name"	"salary"	"count"
+"alice"	3000	2
+"alice"	5000	1
+"bob"	5000	1
+"bob"	2000	2
+
+-- And then to get dupliates
+SELECT name, salary, COUNT(*)
+FROM employee_duplicates
+GROUP BY name, salary
+HAVING COUNT(*) > 1;
+
+-- Result "name"
+-- "name"	"salary"	"count"
+-- "alice"	3000	2
+-- "bob"	2000	2
