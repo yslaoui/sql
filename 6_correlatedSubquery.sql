@@ -74,6 +74,9 @@ ON a.id = e.department_id;
 
 -- TODO
 -- Finally I filter #todo
+-- I see that this solution does not work
+
+
 
 
 --  Then I find the average  salary of a specific department
@@ -87,7 +90,18 @@ WHERE d.id = 3;
 
 SELECT e.employee
 
+-- Let's try to modify the answer to the first question 
+
+SELECT * 
+FROM employees 
+WHERE salary > (
+    SELECT AVG(salary) FROM employees
+    );
 
 
-
-
+-- solution
+SELECT * 
+FROM employees AS e
+WHERE salary > (
+    SELECT AVG(salary) FROM employees AS d WHERE d.department_id=e.department_id
+    );
