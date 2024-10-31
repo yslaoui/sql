@@ -4,8 +4,8 @@
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
     username VARCHAR(50), 
-    salary INT
-    CONSTRAINT unique_username UNIQUE(username);
+    salary INT,
+    CONSTRAINT unique_username UNIQUE(username)
 );
 
 INSERT INTO users(username, salary)

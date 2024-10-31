@@ -8,3 +8,5 @@ SELECT * FROM pg_index;
 -- You can inspect it for what you want from it 
 
 SELECT * FROM pg_indexes;
+
+SELECT indexname, tablename FROM pg_indexes WHERE tablename='employees';
